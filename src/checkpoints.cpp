@@ -14,6 +14,7 @@
 namespace Checkpoints
 {
     typedef std::map<int, std::pair<uint256, unsigned int> > MapCheckpoints;
+    typedef std::list<uint256> ListBannedBlocks;
 
     //
     // What makes a good checkpoint block?
@@ -26,6 +27,11 @@ namespace Checkpoints
         boost::assign::map_list_of
         ( 0,     std::make_pair(hashGenesisBlock, 1485369076) )
         //( 1, std::make_pair(uint256("0xa1591a0fcbf11f282d671581edb9f0aadcd06fee69761081e0a3245914c13729"), 1364674052) )
+    ;
+
+    static ListBannedBlocks listBanned =
+        boost::assign::list_of
+        (uint256("0x0000000000000000000000000000000000000000000000000000000000000000") )
     ;
 
     // TestNet has no checkpoints
@@ -41,6 +47,14 @@ namespace Checkpoints
         MapCheckpoints::const_iterator i = checkpoints.find(nHeight);
         if (i == checkpoints.end()) return true;
         return hash == i->second.first;
+    }
+
+    bool CheckBanned(const uint256 &nHash)
+    {
+        if (fTestNet) // Testnet has no banned blocks
+            return true;
+        ListBannedBlocks::const_iterator it = std::find(listBanned.begin(), listBanned.end(), nHash);
+        return it == listBanned.end();
     }
 
     int GetTotalBlocksEstimate()
