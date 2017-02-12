@@ -1096,18 +1096,20 @@ int64_t GetProofOfWorkReward(unsigned int nBits, int64_t nFees, int nHeight)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nHeight, int64_t nTime, bool bCoinYearOnly)
 {
     int64_t nRewardCoinYear = 20 * COIN;
-	
-	if (nHeight >= 16799)
-		nRewardCoinYear = 124 * COIN;
-	if (nHeight > 34800)
-		nRewardCoinYear = 83 * COIN;
-	if (nHeight > 52800)
-		nRewardCoinYear = 42 * COIN;	
-	if (nHeight > 70800)
-		nRewardCoinYear = 20 * COIN;			
+
+    if (nHeight >= 16799)
+        nRewardCoinYear = 124 * COIN;
+    if (nHeight >= 19000)
+        nRewardCoinYear = 20 * COIN;
+    if (nHeight > 21000)
+        nRewardCoinYear = 10 * COIN;
+    if (nHeight > 30000)
+        nRewardCoinYear = 4 * COIN;
+    if (nHeight > 70800)
+        nRewardCoinYear = 2 * COIN;			
 
     int64_t nSubsidy = nRewardCoinYear;
-    if (nHeight <= 17800)
+    if (nHeight <= 18500)
         nSubsidy = nCoinAge * nRewardCoinYear / 365;
 
     if (fDebug && GetBoolArg("-printcreation"))
