@@ -1102,11 +1102,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nHeight, int64_t nT
     if (nHeight >= 19000)
         nRewardCoinYear = 20 * COIN;
     if (nHeight > 21000)
-        nRewardCoinYear = 10 * COIN;
-    if (nHeight > 30000)
-        nRewardCoinYear = 4 * COIN;
-    if (nHeight > 70800)
-        nRewardCoinYear = 2 * COIN;			
+        nRewardCoinYear = 2 * COIN;
 
     int64_t nSubsidy = nRewardCoinYear;
     if (nHeight <= 18500)
